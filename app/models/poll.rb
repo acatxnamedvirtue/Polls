@@ -7,7 +7,7 @@ class Poll < ActiveRecord::Base
     foreign_key: :user_id,
     primary_key: :id
 
-  has_many :questions,
+  has_many :questions, :dependent => :destroy,
     class_name: "Question",
     foreign_key: :poll_id,
     primary_key: :id

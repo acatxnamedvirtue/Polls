@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   validates :poll_id, presence: true
   validates :text, presence: true
 
-  has_many :answer_choices,
+  has_many :answer_choices, :dependent => :destroy,
     class_name: "AnswerChoice",
     foreign_key: :question_id,
     primary_key: :id
@@ -12,7 +12,7 @@ class Question < ActiveRecord::Base
     foreign_key: :poll_id,
     primary_key: :id
 
-  has_many :responses,
+  has_many :responses, :dependent => :destroy,
     through: :answer_choices,
     source: :responses
 

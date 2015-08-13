@@ -7,7 +7,7 @@ class AnswerChoice < ActiveRecord::Base
     foreign_key: :question_id,
     primary_key: :id
 
-  has_many :responses,
+  has_many :responses, :dependent => :destroy,
     class_name: "Response",
     foreign_key: :answer_choice_id,
     primary_key: :id
