@@ -17,27 +17,6 @@ class Question < ActiveRecord::Base
     source: :responses
 
   def results
-    # choices = answer_choices.includes(:responses)
-    # result = {}
-    # choices.each do |choice|
-    #   result[choice.text] = choice.responses.count
-    # end
-    # result
-
-    # sql = <<-SQL
-    #   SELECT
-    #     answer_choices.*, COUNT(responses.id) AS responses_count
-    #   FROM
-    #     answer_choices
-    #   LEFT JOIN
-    #     responses
-    #     ON answer_choices.id = responses.answer_choice_id
-    #   WHERE
-    #     answer_choices.question_id = #{self.id}
-    #   GROUP BY
-    #     answer_choices.id
-    # SQL
-
     choices_with_counts = answer_choices
       .select('answer_choices.*, COUNT(responses.id) AS responses_count')
       .joins('LEFT JOIN responses ON answer_choices.id = responses.answer_choice_id')
