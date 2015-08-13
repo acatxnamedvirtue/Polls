@@ -11,6 +11,4 @@ class Poll < ActiveRecord::Base
     class_name: "Question",
     foreign_key: :poll_id,
     primary_key: :id
-
-  
 end
