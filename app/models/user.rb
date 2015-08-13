@@ -35,8 +35,7 @@ class User < ActiveRecord::Base
     #     COUNT(questions.id) = COUNT(user_responses)
     # SQL
 
-    Poll.all
-      .select("polls.*")
+    Poll
       .joins(:questions)
       .joins("JOIN answer_choices ON questions.id = answer_choices.question_id")
       .joins("LEFT JOIN (SELECT responses.* FROM responses WHERE responses.user_id = #{self.id}) AS user_responses ON answer_choices.id = user_responses.answer_choice_id")
@@ -45,8 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def uncompleted_polls
-    Poll.all
-      .select("polls.*")
+    Poll
       .joins(:questions)
       .joins("JOIN answer_choices ON questions.id = answer_choices.question_id")
       .joins("LEFT JOIN (SELECT responses.* FROM responses WHERE responses.user_id = #{self.id}) AS user_responses ON answer_choices.id = user_responses.answer_choice_id")
