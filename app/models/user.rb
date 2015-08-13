@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
     Poll
       .joins(:questions)
       .joins("JOIN answer_choices ON questions.id = answer_choices.question_id")
-      .joins("LEFT JOIN (SELECT responses.* FROM responses WHERE responses.user_id = #{self.id}) AS user_responses ON answer_choices.id = user_responses.answer_choice_id")
+      .joins("LEFT JOIN (SELECT responses.* FROM responses WHERE responses.user_id = ?) AS user_responses ON answer_choices.id = user_responses.answer_choice_id", self.id)
       .group("polls.id")
       .having("COUNT(questions.id) = COUNT(user_responses)")
   end
